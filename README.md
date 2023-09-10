@@ -23,3 +23,14 @@ Just init tailwind to create a config
 ## react env
 
 In CRA the REACT*APP* prefix is a must not a should. See the second link provided by op: "Apart from a few built-in variables (NODE*ENV and PUBLIC_URL), variable names must start with REACT_APP* to work."
+
+## react-router DOM
+
+Router Provider's createRouter's return object behaves according to the route/path
+children are rendered in the outlet
+outlet is in the wrapper of the main element which renders other compoment as per the app router's path
+
+## URLSearchParams
+
+browser native funtion
+prototype like a map function

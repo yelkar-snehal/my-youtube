@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 
 const commentsData = [
   {
@@ -88,10 +88,10 @@ const commentsData = [
   },
 ];
 
-const Comment = ({ data }) => {
-  const { name, text, replies } = data;
+const Comment = ({ comment }) => {
+  const { name, text } = comment;
   return (
-    <div className="flex shadow-sm bg-gray-100 rounded-lg">
+    <div className="flex shadow-sm bg-gray-100 rounded-lg py-2 my-2">
       <img
         className="w-8 h-8"
         alt="user"
@@ -105,11 +105,26 @@ const Comment = ({ data }) => {
   );
 };
 
+const CommentsList = ({ comments }) => {
+  if (!comments?.length) return null;
+  return comments.map((comment, index) => (
+    // using index here temporarily w/ mock data
+    <Fragment key={`${comment.name}_${index}`}>
+      <Comment comment={comment} />
+      {!comment.replies?.length ? null : (
+        <div className="pl-5 ml-5 border border-l-black">
+          <CommentsList comments={comment.replies} />
+        </div>
+      )}
+    </Fragment>
+  ));
+};
+
 const CommentsContainer = () => {
   return (
     <section className="my-2 py-2">
       <h1 className="text-2xl font-bold">Comments</h1>
-      <Comment data={commentsData[0]} />
+      <CommentsList comments={commentsData} />
     </section>
   );
 };

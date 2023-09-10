@@ -34,3 +34,14 @@ outlet is in the wrapper of the main element which renders other compoment as pe
 
 browser native funtion
 prototype like a map function
+
+## cache
+
+[] -> time complexity O(n), because of minimum iteration
+{} or map -> time complexity O(1), because of the dot operator or getter
+
+## redux
+
+base state object shouldn't be mutated
+inner nested objects can be mutated
+or return a different state entirely by copying the whole obj

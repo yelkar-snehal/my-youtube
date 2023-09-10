@@ -1,33 +1,41 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import React, { useEffect, useState, useCallback } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { toggleMenu } from "../utils/appSlice";
 import { YOUTUBE_SEARCH_API } from "../utils/constants";
+import { set } from "../utils/cacheSlice";
 
 const Header = () => {
   const dispatch = useDispatch();
   const [searchText, setSearchText] = useState("");
   const [suggestions, setSuggestions] = useState([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
+  const cache = useSelector((store) => store.cache.search);
+
+  const getSearchSuggestions = useCallback(
+    async (searchText) => {
+      const data = await fetch(`${YOUTUBE_SEARCH_API}&q=${searchText}`);
+      const ret = await data.json();
+      dispatch(set({ [searchText]: ret?.[1] }));
+      setSuggestions(ret?.[1]);
+    },
+    [dispatch]
+  );
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      searchText &&
-        getSearchSuggestions(searchText).then((response) =>
-          setSuggestions(response)
-        );
+      if (searchText) {
+        if (cache?.[searchText]) setSuggestions(cache[searchText]);
+        else {
+          getSearchSuggestions(searchText);
+        }
+      }
     }, 200);
 
     // clear pending, unreqd debounced cbs
     return () => {
       clearTimeout(timer);
     };
-  }, [searchText]);
-
-  const getSearchSuggestions = async (searchText) => {
-    const data = await fetch(`${YOUTUBE_SEARCH_API}&q=${searchText}`);
-    const ret = await data.json();
-    return ret?.[1];
-  };
+  }, [cache, getSearchSuggestions, searchText]);
 
   return (
     <header className="grid grid-flow-col p-2 m-2 shadow-md content-center">

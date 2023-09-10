@@ -68,7 +68,7 @@ const Header = () => {
         <button className=" border border-gray-400 p-2 rounded-r-full bg-gray-100">
           🔍
         </button>
-        {showSuggestions && suggestions?.length && (
+        {showSuggestions && suggestions?.length ? (
           <div className="absolute w-5/12 bg-white shadow-lg rounded-lg p-2 m-2 border border-gray-100">
             <ul>
               {suggestions.map((suggestion) => (
@@ -81,7 +81,7 @@ const Header = () => {
               ))}
             </ul>
           </div>
-        )}
+        ) : null}
       </section>
       <section className="col-span-1">
         <img

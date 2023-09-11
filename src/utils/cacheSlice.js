@@ -8,13 +8,10 @@ const cacheSlice = createSlice({
   reducers: {
     set: (state, action) => {
       // state = Object.assign(state, action.payload);
-
       state.search = {
         ...state.search,
         ...action.payload,
       };
-
-      console.log(state);
     },
   },
 });

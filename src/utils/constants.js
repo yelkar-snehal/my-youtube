@@ -3,6 +3,8 @@ export const YOUTUBE_MOST_POPULAR_API = `https://youtube.googleapis.com/youtube/
 export const YOUTUBE_SEARCH_API =
   "https://suggestqueries.google.com/complete/search?client=firefox&ds=yt";
 
+export const OFFSET_LIVE_CHAT = 7;
+
 // GET https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&chart=mostPopular&regionCode=US&key=[YOUR_API_KEY] HTTP/1.1
 
 // Authorization: Bearer [YOUR_ACCESS_TOKEN]

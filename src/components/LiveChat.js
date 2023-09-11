@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import ChatMessage from "./ChatMessage";
 import { useDispatch, useSelector } from "react-redux";
-import { addMessages, addMessage } from "../utils/chatSlice";
+import { addMessage } from "../utils/chatSlice";
 import { getRandomInt } from "./../utils/utils";
 
 const LiveChat = () => {
@@ -12,7 +12,7 @@ const LiveChat = () => {
     const interval = setInterval(() => {
       let messages = [];
       // actual fetch call here to poll
-      console.log("API polling");
+      // console.log("API polling");
       fetch(`https://api.gameofthronesquotes.xyz/v1/random/${getRandomInt(5)}`)
         .then((response) => response.json())
         .then((responseData) => {
@@ -28,10 +28,10 @@ const LiveChat = () => {
               name: res.character.name,
               message: res.sentence,
             }));
-            disptach(addMessages(messages));
+            disptach(addMessage(...messages));
           }
         });
-    }, 5000);
+    }, 10000);
     return () => clearInterval(interval);
   }, [disptach]);
 

@@ -12,6 +12,10 @@ detect unexpected side-effects, unsafe life cycles, deprecated DOM, etc
 
 (same as fragments) won't render anything visually different
 
+renders components twice to ensure cleanup is done proverply, only for development though
+
+If you have the StrictMode enabled, it will fire two times the useEffect on development mode to make sure that you are aware of the possible side-effects that could appear.
+
 ## tailwind css
 
 dev dependency
